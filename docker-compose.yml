@@ -11,3 +11,15 @@ services:
       - /data/nginx/certs:/etc/nginx/certs 
       - /data/nginx/vhost:/etc/nginx/vhost.d 
       - /data/nginx/html:/usr/share/nginx/html 
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+volumes:
+  certs:
+  acme:
