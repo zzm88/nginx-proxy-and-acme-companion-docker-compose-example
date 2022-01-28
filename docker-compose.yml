@@ -8,9 +8,10 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /data/nginx/certs:/etc/nginx/certs 
-      - /data/nginx/vhost:/etc/nginx/vhost.d 
-      - /data/nginx/html:/usr/share/nginx/html 
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
   acme-companion:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
@@ -21,5 +22,8 @@ services:
       - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
 volumes:
+  conf:
+  vhost:
+  html:
   certs:
   acme:
